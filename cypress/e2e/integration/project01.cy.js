@@ -247,6 +247,5 @@ it('Test Case 10 - Validate the form submission', () =>{
     .should('be.visible')
     .and('have.text', 'Thanks for submitting!')
 
-
 })
 
