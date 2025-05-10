@@ -1,0 +1,44 @@
+
+
+
+May 07 25
+
+
+RECAP
+Warning - One option - Okay
+
+Confirmation - Two options - Okay and Cancel
+
+Prompt - We have input bar where we can prompt any text we want, and can click Okay or Cancel
+
+
+How do we handle alerts in Cypress?
+    Cypress by default handles the warning and confirmation alerts by clicking the Okay. Cypress does not handle the prompt alert because
+    it assumes input must be entered by the uer.
+
+    We dont handle the warning and confirmation alerts, but if we want to interact with there dialogs, we have to use cy.on event listener.
+
+    Cy.on() => It's an event listener that listens specific events that are triggered by the browser, and handles it if its needed.
+
+    cy.on('window:alert)
+    cy.on('window:confirm)
+
+    How to handle Prompt in Cypress? 
+
+        First, we have to call the prompt method, whicxh is an instance of a windows object in Javascript. After, we need to use 
+        cy.stub() which is a method that is coming from the Sinon bundled library which will allow us to replace the functionality of the
+        original prompt method.
+
+        cy.window().then((win) => {
+            cy.stub(win, 'prompt').returns('some input')
+        })
+
+    
+    
+    Keyboard and Mouse Actions in Cypress
+
+        Cypress Keyboard or Mouse actions are simulated which are actually fired from the JS. For this reason while using any cypress UI 
+        interaction methods. We might end up having errors.
+
+        To fix this issue, it's suggested to install a library called "real-events" from npm. This library creates user actions using
+        Chrome DevTools Protocol (CDP) which is pretty much same as real user actions. 
