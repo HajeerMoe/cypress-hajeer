@@ -17,3 +17,25 @@
 import './commands'
 import '@4tw/cypress-drag-drop'
 import 'cypress-real-events'
+import 'dotenv'
+import 'cypress-mochawesome-reporter/register';
+const registerCypressGrep = require('@cypress/grep')
+registerCypressGrep()
+
+beforeEach(() => {
+  cy.visit(`${Cypress.env('SITE_URL')}/frontend`)
+})
+
+before(() => {
+  // exec('node index.js')
+  // spawn('node index.js')
+  //cy.exec('node index.js')
+  // cy.exec('react run')
+})
+
+// after(() => {
+  // exec('node index.js')
+  // spawn('node index.js')
+  // cy.exec('node index.js')
+  // cy.exec('react stop')
+// })

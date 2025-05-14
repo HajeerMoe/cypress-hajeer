@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 
-describe('Project 01 - Frontend Form Elements', () => {
+describe('Project 02 - Frontend Form Elements', () => {
     beforeEach(() => {
         cy.visit('https://techglobal-training.com/frontend/login')
     })
@@ -33,7 +33,7 @@ it(('Test Case 01 - Validate the login form'), () => {
 })
 
 function login() {
-    cy.get('#username').type('TechGlobal')
+    cy.get('#username').type('TechGlobal') 
     cy.get('#password').type('Test1234')
     cy.get('#login_btn').realClick()
 }
@@ -117,7 +117,7 @@ it('Test Case 10 - Validate the invalid login with the wrong username and passwo
     cy.get('#username').type('John')
     cy.get('#password').type('1234')
     cy.get('#login_btn').realClick()
-    cy.get('#error_message').should('be.visible').and('have.text', 'Invalid Password entered!')
+    cy.get('#error_message').should('be.visible').and('have.text', 'Invalid Username entered!')
 })
 
 })
