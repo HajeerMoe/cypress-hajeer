@@ -1,5 +1,10 @@
 name: End-to-end tests
-on: push
+on: 
+  # Trigger workflow on any push to any branch. or you can just have on: 
+  push: master
+  schedule: 
+    - cron: '30 2 * * 6' #MILITARY TIME SO - this schedule is run every Saturday at 2:30 AM UTC
+    # 1st * is minute || 2nd * is hour || 3rd * is DayOfMonth || 4th * is Month || 5th * is DayOfWeek
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
@@ -10,3 +15,24 @@ jobs:
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
+        with:
+          #browser: chrome # (1)
+          #headed: false   # (2)
+          # spec: cypress/e2e/spec1.cy.js #(3) NEVER DO (1)(2)(3) do the line below
+          command: npm run test:smoke #This command: give it a command from package.json like npm run test:smoke, etc
+
+      - name: Artifacts
+        uses: actions/upload-artifact@v4
+        # add the line below to store screenshots only on failures
+        # if: failure()
+        with: 
+          name: Cypress Reports
+          path: cypress/reports/html/index.html
+          if-no-files-found: ignore
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: cypress/reports/html
+
